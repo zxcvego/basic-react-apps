@@ -1,3 +1,7 @@
 export default function Weather() {
-	return null;
+	return (
+		<>
+			<h1>Hello Weather app!</h1>
+		</>
+	);
 }

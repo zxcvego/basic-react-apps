@@ -1,3 +1,7 @@
 export default function TicTacToe() {
-	return null;
+	return (
+		<>
+			<h1>Hello Tic-Tac-Toe!</h1>
+		</>
+	);
 }
