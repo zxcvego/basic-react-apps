@@ -1,0 +1,25 @@
+.functional-task-menu {
+	text-align: center;
+}
+
+input,
+button {
+	color: rgb(146, 95, 95);
+	border: none;
+}
+
+button {
+	cursor: pointer;
+	height: 50px;
+	width: 200px;
+}
+
+input {
+	height: 48px;
+	width: 500px;
+	text-align: center;
+}
+
+input:focus {
+	outline: none;
+}
