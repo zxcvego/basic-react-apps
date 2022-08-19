@@ -2,24 +2,30 @@ HomeMenu {
 	background-color: black;
 }
 
+.grid-container {
+	display: grid;
+	grid-template-columns: 0fr 0fr;
+	grid-column-gap: 100px;
+	grid-row-gap: 50px;
+	justify-content: center;
+}
+
 .select-box {
 	width: 400px;
 	height: 100px;
-	display: flex;
-	margin: 45px auto 0px auto;
 	border: none;
 	transition: 0.4s;
 }
 
-button > h1 {
+.select-box:hover {
+	background: #61dbfb;
+	cursor: pointer;
+	transform: scale(1.2);
+}
+
+button h1 {
 	margin: auto auto;
 	font-weight: 800;
 	font-size: 2rem;
 	color: black;
-}
-
-.select-box:hover {
-	background: red;
-	cursor: pointer;
-	transform: scale(1.2);
 }
