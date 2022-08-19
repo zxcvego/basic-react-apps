@@ -1,19 +1,21 @@
+HomeMenu {
+	background-color: black;
+}
+
 .select-box {
-	display: fixed;
-	width: 300px;
+	width: 400px;
 	height: 100px;
 	display: flex;
-	justify-items: center;
 	margin: 45px auto 0px auto;
 	border: none;
-	background-color: rgb(244, 238, 238);
 	transition: 0.4s;
 }
 
-.select-box h2 {
-	color: black;
-	font-weight: 800;
+button > h1 {
 	margin: auto auto;
+	font-weight: 800;
+	font-size: 2rem;
+	color: black;
 }
 
 .select-box:hover {
