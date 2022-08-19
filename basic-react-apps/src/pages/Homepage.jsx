@@ -1,23 +1,15 @@
 import "./Homepage.css";
 import logo from "../logo.svg";
+import HomeMenu from "../components/HomeMenu";
 
 export default function Homepage() {
 	return (
-		<div>
+		<>
+			<header>
+				<h1>Basic React.js Applications</h1>
+			</header>
 			<img src={logo} alt="logo" className="app-logo" />
-			<h1>Basic React.js Applications</h1>
-			<div className="select-box">
-				<h2>ToDo List</h2>
-			</div>
-			<div className="select-box">
-				<h2>Habit Tracker</h2>
-			</div>
-			<div className="select-box">
-				<h2>Tic Tac Toe</h2>
-			</div>
-			<div className="select-box">
-				<h2>Weather</h2>
-			</div>
-		</div>
+			<HomeMenu />
+		</>
 	);
 }
