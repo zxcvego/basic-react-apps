@@ -1,4 +1,5 @@
 import "./ToDo.css";
+import Task from "../components/Task";
 
 export default function ToDo() {
 	return (
@@ -9,6 +10,9 @@ export default function ToDo() {
 			<article className="functional-task-menu">
 				<input type="text" placeholder="New task" required />
 				<button>Add</button>
+				<div className="tasks-container">
+					<Task />
+				</div>
 			</article>
 		</>
 	);

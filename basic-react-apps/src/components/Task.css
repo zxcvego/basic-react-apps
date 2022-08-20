@@ -1,0 +1,36 @@
+li {
+	background-color: gray;
+	height: 48px;
+	width: 704px;
+	list-style-type: none;
+	margin-top: 5px;
+}
+
+li button {
+	width: 66.65px;
+	height: 48px;
+	float: right;
+}
+
+.done-button {
+	background-color: green;
+	color: black;
+	font-weight: 600;
+}
+
+.modify-button {
+	background-color: orange;
+	color: black;
+	font-weight: 600;
+}
+
+.cancel-button {
+	background-color: rgb(252, 106, 106);
+	color: black;
+	font-weight: 600;
+}
+
+li .task-name {
+	position: relative;
+	top: 11px;
+}

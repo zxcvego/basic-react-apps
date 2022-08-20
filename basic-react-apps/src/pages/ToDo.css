@@ -4,7 +4,7 @@
 
 input,
 button {
-	color: rgb(146, 95, 95);
+	color: rgb(0, 0, 0);
 	border: none;
 }
 
@@ -22,4 +22,10 @@ input {
 
 input:focus {
 	outline: none;
+}
+
+.functional-task-menu .tasks-container {
+	width: 704px;
+	margin-left: auto;
+	margin-right: auto;
 }
