@@ -10,9 +10,7 @@ export default function ToDo() {
 			<article className="functional-task-menu">
 				<input type="text" placeholder="New task" required />
 				<button>Add</button>
-				<div className="tasks-container">
-					<Task />
-				</div>
+				<Task />
 			</article>
 		</>
 	);
