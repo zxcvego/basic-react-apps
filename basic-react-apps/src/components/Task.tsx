@@ -25,7 +25,6 @@ export default function Task(props: any) {
 		props.setTaskList(
 			props.taskList.filter((task: any, i: number) => i !== getIndexOfTask())
 		);
-		console.log(props.taskList);
 	};
 
 	return (

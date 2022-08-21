@@ -49,9 +49,12 @@ export default function ToDo() {
 						ifTaskCompleted={taskList[i].ifTaskCompleted}
 					></Task>
 				))}
-				
-				{taskList.length>0 ? <ClearDoneTasks /> : ""} 
-				
+
+				{taskList.length > 0 ? (
+					<ClearDoneTasks setTaskList={setTaskList} taskList={taskList} />
+				) : (
+					""
+				)}
 			</article>
 		</>
 	);
