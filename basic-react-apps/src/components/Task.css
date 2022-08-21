@@ -36,3 +36,11 @@ li .task-name {
 	position: relative;
 	top: 11px;
 }
+
+.done {
+	background-color: green;
+}
+
+.done .task-name {
+	color: black;
+}

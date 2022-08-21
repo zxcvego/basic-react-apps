@@ -33,3 +33,8 @@ input:focus {
 	margin-left: auto;
 	margin-right: auto;
 }
+
+.clear-tasks-button {
+	margin-top: 10px;
+	background-color: #61dbfb;
+}
