@@ -23,3 +23,13 @@ input {
 input:focus {
 	outline: none;
 }
+
+.functional-task-menu button {
+	background-color: #61dbfb;
+}
+
+.task-list {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}

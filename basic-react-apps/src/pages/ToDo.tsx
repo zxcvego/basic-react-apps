@@ -33,7 +33,8 @@ export default function ToDo() {
 					required
 				/>
 				<button onClick={() => addTask({ name: inputTaskVal })}>Add</button>
-
+			</article>
+			<article className="task-list">
 				{taskList.map((singleTask, i) => (
 					<Task
 						key={i}
