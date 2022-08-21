@@ -13,10 +13,10 @@ export default function Task(props: any) {
 		return index;
 	};
 
-	const completeTask = () => {
+	const changeTaskStatus = (status: boolean) => {
 		const tempTaskList = JSON.parse(JSON.stringify(props.taskList));
 		for (let i = 0; i < tempTaskList.length; i++) {
-			if (i === getIndexOfTask()) tempTaskList[i].ifTaskCompleted = true;
+			if (i === getIndexOfTask()) tempTaskList[i].ifTaskCompleted = status;
 		}
 		props.setTaskList(tempTaskList);
 	};
@@ -37,8 +37,10 @@ export default function Task(props: any) {
 			<button className="cancel-button" onClick={removeTask}>
 				Cancel
 			</button>
-			<button className="modify-button">Modify</button>
-			<button className="done-button" onClick={completeTask}>
+			<button className="undone-button" onClick={() => changeTaskStatus(false)}>
+				Undone
+			</button>
+			<button className="done-button" onClick={() => changeTaskStatus(true)}>
 				Done
 			</button>
 		</li>
