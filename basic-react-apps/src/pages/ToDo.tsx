@@ -11,11 +11,22 @@ interface TaskInterface {
 export default function ToDo() {
 	const [taskList, setTaskList] = useState<TaskInterface[]>([]);
 	const [inputTaskVal, setInputTaskVal] = useState("");
+	const checkIfTaskExists = (input: string) => {
+		for (let i = 0; i < taskList.length; i++) {
+			if (input === taskList[i].name) return true;
+		}
+		return false;
+	};
 	const addTask = (task: TaskInterface) => {
-		if (inputTaskVal.length > 0) {
+		if (inputTaskVal.length <= 0) {
+			alert("Task name is too short!");
+		} else if (checkIfTaskExists(task.name)) {
+			alert("Task already exists!");
+			setInputTaskVal("");
+		} else {
 			setTaskList([...taskList, task]);
 			setInputTaskVal("");
-		} else console.log("New task name is too short.");
+		}
 	};
 	const handleInputChange = (e: any) => setInputTaskVal(e.target.value);
 	return (
@@ -46,15 +57,12 @@ export default function ToDo() {
 						taskName={taskList[i].name}
 						setTaskList={setTaskList}
 						taskList={taskList}
-						ifTaskCompleted={taskList[i].ifTaskCompleted}
 					></Task>
 				))}
 
 				{taskList.length > 0 ? (
 					<ClearDoneTasks setTaskList={setTaskList} taskList={taskList} />
-				) : (
-					""
-				)}
+				) : null}
 			</article>
 		</>
 	);
