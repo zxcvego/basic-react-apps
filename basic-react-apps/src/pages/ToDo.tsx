@@ -9,12 +9,14 @@ interface TaskInterface {
 export default function ToDo() {
 	const [taskList, setTaskList] = useState<TaskInterface[]>([]);
 	const [inputTaskVal, setInputTaskVal] = useState("");
+	// const TaskListContext = createContext(taskList);
 	const addTask = (task: TaskInterface) => {
 		if (inputTaskVal.length > 0) {
 			setTaskList([...taskList, task]);
 			setInputTaskVal("");
 		} else console.log("New task name is too short.");
 	};
+
 	const handleInputChange = (e: any) => setInputTaskVal(e.target.value);
 
 	return (
@@ -31,8 +33,14 @@ export default function ToDo() {
 					required
 				/>
 				<button onClick={() => addTask({ name: inputTaskVal })}>Add</button>
+
 				{taskList.map((singleTask, i) => (
-					<Task key={i}>{singleTask.name}</Task>
+					<Task
+						key={i}
+						taskName={taskList[i].name}
+						setTaskList={setTaskList}
+						taskList={taskList}
+					></Task>
 				))}
 			</article>
 		</>
