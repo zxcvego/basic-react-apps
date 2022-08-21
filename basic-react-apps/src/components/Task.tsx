@@ -1,39 +1,33 @@
 import "./Task.css";
 
-export default function Task(props: any) {
-	const getIndexOfTask = () => {
-		const tempTaskList = props.taskList;
-		let index = -1;
-		for (let i = 0; i < tempTaskList.length; i++) {
-			if (tempTaskList[i].name === props.taskName) {
-				index = i;
-				break;
-			}
-		}
-		return index;
-	};
+interface TaskProps {
+	id: number;
+	taskName: string;
+	setTaskList: (taskList: any[]) => void;
+	taskList: any[];
+}
 
+export default function Task({
+	taskList,
+	id,
+	setTaskList,
+	taskName,
+}: TaskProps) {
 	const changeTaskStatus = (status: boolean) => {
-		const tempTaskList = JSON.parse(JSON.stringify(props.taskList));
+		const tempTaskList = JSON.parse(JSON.stringify(taskList));
 		for (let i = 0; i < tempTaskList.length; i++) {
-			if (i === getIndexOfTask()) tempTaskList[i].ifTaskCompleted = status;
+			if (i === id) tempTaskList[i].isTaskCompleted = status;
 		}
-		props.setTaskList(tempTaskList);
+		setTaskList(tempTaskList);
 	};
 
 	const removeTask = () => {
-		props.setTaskList(
-			props.taskList.filter((task: any, i: number) => i !== getIndexOfTask())
-		);
+		setTaskList(taskList.filter((_task: any, i: number) => i !== id));
 	};
 
 	return (
-		<li
-			className={
-				props.taskList[getIndexOfTask()].ifTaskCompleted === true ? "done" : ""
-			}
-		>
-			<span className="task-name">{props.taskName}</span>
+		<li className={taskList[id].isTaskCompleted ? "done" : ""}>
+			<span className="task-name">{taskName}</span>
 			<button className="cancel-button" onClick={removeTask}>
 				Cancel
 			</button>

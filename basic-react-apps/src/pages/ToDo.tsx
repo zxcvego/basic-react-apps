@@ -5,15 +5,15 @@ import "../components/ClearDoneTasks";
 import ClearDoneTasks from "../components/ClearDoneTasks";
 interface TaskInterface {
 	name: string;
-	ifTaskCompleted: boolean;
+	isTaskCompleted: boolean;
 }
 
 export default function ToDo() {
 	const [taskList, setTaskList] = useState<TaskInterface[]>([]);
 	const [inputTaskVal, setInputTaskVal] = useState("");
-	const checkIfTaskExists = (input: string) => {
+	const checkIfTaskExists = (taskName: string) => {
 		for (let i = 0; i < taskList.length; i++) {
-			if (input === taskList[i].name) return true;
+			if (taskName === taskList[i].name) return true;
 		}
 		return false;
 	};
@@ -28,7 +28,8 @@ export default function ToDo() {
 			setInputTaskVal("");
 		}
 	};
-	const handleInputChange = (e: any) => setInputTaskVal(e.target.value);
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+		setInputTaskVal(e.target.value);
 	return (
 		<>
 			<header>
@@ -44,7 +45,7 @@ export default function ToDo() {
 				/>
 				<button
 					onClick={() =>
-						addTask({ name: inputTaskVal, ifTaskCompleted: false })
+						addTask({ name: inputTaskVal, isTaskCompleted: false })
 					}
 				>
 					Add
@@ -54,6 +55,7 @@ export default function ToDo() {
 				{taskList.map((singleTask, i) => (
 					<Task
 						key={i}
+						id={i}
 						taskName={taskList[i].name}
 						setTaskList={setTaskList}
 						taskList={taskList}
