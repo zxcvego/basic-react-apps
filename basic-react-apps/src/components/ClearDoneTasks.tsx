@@ -1,9 +1,12 @@
-export default function ClearDoneTasks(props: any) {
+interface TaskProps {
+	setTaskList: (taskList: any[]) => void;
+	taskList: any[];
+}
+
+export default function ClearDoneTasks({ taskList, setTaskList }: TaskProps) {
 	const clearEachDoneTask = () => {
-		props.setTaskList(
-			props.taskList.filter(
-				(task: any, i: number) => task.ifTaskCompleted === false
-			)
+		setTaskList(
+			taskList.filter((task: any, _i: number) => task.isTaskCompleted === false)
 		);
 	};
 

@@ -1,6 +1,6 @@
 import "./ToDo.css";
 import Task from "../components/Task";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../components/ClearDoneTasks";
 import ClearDoneTasks from "../components/ClearDoneTasks";
 interface TaskInterface {
@@ -11,6 +11,7 @@ interface TaskInterface {
 export default function ToDo() {
 	const [taskList, setTaskList] = useState<TaskInterface[]>([]);
 	const [inputTaskVal, setInputTaskVal] = useState("");
+
 	const checkIfTaskExists = (taskName: string) => {
 		for (let i = 0; i < taskList.length; i++) {
 			if (taskName === taskList[i].name) return true;
