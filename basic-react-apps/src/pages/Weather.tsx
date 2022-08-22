@@ -1,20 +1,17 @@
 import React, { useState } from "react";
+import useInput from "../hooks/useInput";
 import "./Weather.css";
 export default function Weather() {
 	const [city, setCity] = useState("");
-	const [inputCityVal, setInputCityVal] = useState("");
-
-	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setInputCityVal(e.target.value);
-	};
+	const inputCity = useInput("");
 
 	const captureEnteredCity = (e: React.KeyboardEvent<Element>) => {
 		if (e.key === "Enter") {
-			if (inputCityVal.length <= 0) {
+			if (inputCity.value.length <= 0) {
 				alert("City name is empty!");
 			} else {
-				setCity(inputCityVal);
-				setInputCityVal("");
+				setCity(inputCity.value);
+				inputCity.setValue("");
 			}
 		}
 	};
@@ -28,8 +25,8 @@ export default function Weather() {
 				<input
 					type="text"
 					placeholder="Enter a city name"
-					onChange={handleInputChange}
-					value={inputCityVal}
+					onChange={inputCity.onChange}
+					value={inputCity.value}
 					onKeyDown={captureEnteredCity}
 					autoComplete="on"
 					required

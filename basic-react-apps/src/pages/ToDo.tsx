@@ -1,6 +1,7 @@
+import { useState } from "react";
+import useInput from "../hooks/useInput";
 import "./ToDo.css";
 import Task from "../components/Task";
-import { useEffect, useState } from "react";
 import "../components/ClearDoneTasks";
 import ClearDoneTasks from "../components/ClearDoneTasks";
 interface TaskInterface {
@@ -10,7 +11,7 @@ interface TaskInterface {
 
 export default function ToDo() {
 	const [taskList, setTaskList] = useState<TaskInterface[]>([]);
-	const [inputTaskVal, setInputTaskVal] = useState("");
+	const inputTask = useInput("");
 
 	const checkIfTaskExists = (taskName: string) => {
 		for (let i = 0; i < taskList.length; i++) {
@@ -19,18 +20,18 @@ export default function ToDo() {
 		return false;
 	};
 	const addTask = (task: TaskInterface) => {
-		if (inputTaskVal.length <= 0) {
+		if (inputTask.value.length <= 0) {
 			alert("Task name is too short!");
 		} else if (checkIfTaskExists(task.name)) {
 			alert("Task already exists!");
-			setInputTaskVal("");
+			inputTask.setValue("");
 		} else {
 			setTaskList([...taskList, task]);
-			setInputTaskVal("");
+			inputTask.setValue("");
 		}
 	};
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-		setInputTaskVal(e.target.value);
+		inputTask.setValue(e.target.value);
 	return (
 		<>
 			<header>
@@ -41,12 +42,12 @@ export default function ToDo() {
 					type="text"
 					placeholder="New task"
 					onChange={handleInputChange}
-					value={inputTaskVal}
+					value={inputTask.value}
 					required
 				/>
 				<button
 					onClick={() =>
-						addTask({ name: inputTaskVal, isTaskCompleted: false })
+						addTask({ name: inputTask.value, isTaskCompleted: false })
 					}
 				>
 					Add
