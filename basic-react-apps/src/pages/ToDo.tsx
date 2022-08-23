@@ -1,17 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useInput from "../hooks/useInput";
 import "./ToDo.css";
 import Task from "../components/Task";
 import "../components/ClearDoneTasks";
 import ClearDoneTasks from "../components/ClearDoneTasks";
+
 interface TaskInterface {
 	name: string;
 	isTaskCompleted: boolean;
 }
 
+const LOCAL_STORAGE_TASKLIST = "tasks";
+
 export default function ToDo() {
-	const [taskList, setTaskList] = useState<TaskInterface[]>([]);
+	const [taskList, setTaskList] = useState<TaskInterface[]>(() => {
+		const data = window.localStorage.getItem(LOCAL_STORAGE_TASKLIST);
+		return !!data ? JSON.parse(data) : [];
+	});
+
 	const inputTask = useInput("");
+
+	useEffect(() => {
+		const data = JSON.stringify(taskList);
+		window.localStorage.setItem(LOCAL_STORAGE_TASKLIST, data);
+	}, [taskList]);
 
 	const checkIfTaskExists = (taskName: string) => {
 		for (let i = 0; i < taskList.length; i++) {
@@ -19,6 +31,7 @@ export default function ToDo() {
 		}
 		return false;
 	};
+
 	const addTask = (task: TaskInterface) => {
 		if (inputTask.value.length <= 0) {
 			alert("Task name is too short!");
@@ -30,8 +43,10 @@ export default function ToDo() {
 			inputTask.setValue("");
 		}
 	};
+
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
 		inputTask.setValue(e.target.value);
+
 	return (
 		<>
 			<header>
