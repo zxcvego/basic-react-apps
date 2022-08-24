@@ -53,19 +53,20 @@ export default function Task({
 		} else alert("You are already changing a task.");
 	};
 
-	const TaskClassName = taskList[id].nameChanging
+	const singleTaskClassName = taskList[id].nameChanging
 		? "single-task task-functional-button change"
 		: taskList[id].isTaskCompleted
 		? "single-task task-functional-button done"
 		: "single-task task-functional-button";
 
 	return (
-		<li className={TaskClassName}>
+		<li className={singleTaskClassName}>
 			<span className="task-name">{taskList[id].name}</span>
 			<input
 				className="if-done-checkbox"
 				type="checkbox"
 				onClick={changeTaskStatusCheckbox}
+				checked={taskList[id].isTaskCompleted}
 			/>
 			<div className="task-functional-buttons">
 				<button

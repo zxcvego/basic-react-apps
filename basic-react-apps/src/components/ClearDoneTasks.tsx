@@ -12,7 +12,7 @@ export default function ClearDoneTasks({ taskList, setTaskList }: TaskProps) {
 
 	return (
 		<>
-			<button className="clear-tasks-button" onClick={clearEachDoneTask}>
+			<button className="bottom-functional-button" onClick={clearEachDoneTask}>
 				Clear each done task
 			</button>
 		</>

@@ -44,31 +44,45 @@ export default function ToDo() {
 	};
 
 	const addTask = (task: TaskInterface) => {
-		if (inputTask.value.length <= 0) {
-			alert("Task name is too short!");
-		} else if (checkIfTaskExists(task.name)) {
-			alert("Task already exists!");
+		if (inputTask.value.length <= 0) alert("Task name is too short!");
+
+		if (checkIfTaskExists(task.name)) {
 			inputTask.setValue("");
-		} else {
-			setTaskList([...taskList, task]);
-			inputTask.setValue("");
+			return alert("Task already exists!");
 		}
+
+		setTaskList([...taskList, task]);
+		inputTask.setValue("");
+	};
+
+	const resetChangeMode = () => {
+		taskList[changeNameStatus.taskId].nameChanging = false;
+		setChangeNameStatus({ taskId: 0, value: false });
 	};
 
 	const changeName = () => {
-		if (inputTask.value.length <= 0) {
-			alert("Task name is too short!");
-		} else if (checkIfTaskExists(inputTask.value)) {
-			alert("Task already exists!");
-			taskList[changeNameStatus.taskId].nameChanging = false;
-			setChangeNameStatus({ taskId: 0, value: false });
+		if (inputTask.value.length <= 0) return alert("Task name is too short!");
+
+		if (checkIfTaskExists(inputTask.value)) {
+			resetChangeMode();
 			inputTask.setValue("");
-		} else {
-			taskList[changeNameStatus.taskId].name = inputTask.value;
-			taskList[changeNameStatus.taskId].nameChanging = false;
-			setChangeNameStatus({ taskId: 0, value: false });
-			inputTask.setValue("");
+			return alert("Task already exists!");
 		}
+
+		taskList[changeNameStatus.taskId].name = inputTask.value;
+		resetChangeMode();
+		inputTask.setValue("");
+	};
+
+	const ifChangingName = changeNameStatus.value;
+	const changeNameOrAddTask = () => {
+		ifChangingName
+			? changeName()
+			: addTask({
+					name: inputTask.value,
+					isTaskCompleted: false,
+					nameChanging: false,
+			  });
 	};
 
 	return (
@@ -81,26 +95,13 @@ export default function ToDo() {
 					<input
 						type="text"
 						className="insert-input"
-						placeholder={
-							changeNameStatus.value ? "Changing task name..." : "New task"
-						}
+						placeholder={ifChangingName ? "Changing task name..." : "New task"}
 						onChange={inputTask.onChange}
 						value={inputTask.value}
 						required
 					/>
-					<button
-						className="insert-button"
-						onClick={() =>
-							changeNameStatus.value
-								? changeName()
-								: addTask({
-										name: inputTask.value,
-										isTaskCompleted: false,
-										nameChanging: false,
-								  })
-						}
-					>
-						{changeNameStatus.value ? "Change" : "Add"}
+					<button className="insert-button" onClick={() => changeNameOrAddTask}>
+						{ifChangingName ? "Change" : "Add"}
 					</button>
 				</article>
 				<article className="task-list">
@@ -110,19 +111,19 @@ export default function ToDo() {
 							id={i}
 							taskList={taskList}
 							setTaskList={setTaskList}
-							changeNameStatusValue={changeNameStatus.value}
+							changeNameStatusValue={ifChangingName}
 							changeNameStatusTaskId={changeNameStatus.taskId}
 							setChangeNameStatus={setChangeNameStatus}
 						></Task>
 					))}
 				</article>
-				{changeNameStatus.value ? (
+				{ifChangingName ? (
 					<CancelChange
 						taskList={taskList}
 						setChangeNameStatus={setChangeNameStatus}
 						changeNameStatusTaskId={changeNameStatus.taskId}
 					/>
-				) : taskList.length > 0 && !changeNameStatus.value ? (
+				) : taskList.length > 0 && !ifChangingName ? (
 					<ClearDoneTasks setTaskList={setTaskList} taskList={taskList} />
 				) : null}
 			</div>

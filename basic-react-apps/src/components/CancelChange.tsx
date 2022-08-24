@@ -19,7 +19,7 @@ export default function CancelChange({
 
 	return (
 		<>
-			<button className="clear-tasks-button" onClick={cancelChangingName}>
+			<button className="bottom-functional-button" onClick={cancelChangingName}>
 				Cancel changing name
 			</button>
 		</>
