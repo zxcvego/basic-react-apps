@@ -1,20 +1,30 @@
-.task-functional-button.done {
-	color: green;
+.single-task.done {
+	color: rgb(106, 233, 106);
 }
 
-.task-functional-button.undone {
-	background-color: orange;
-}
-
-.task-functional-button.change {
-	background-color: #0177fb;
-}
-
-.task-functional-button.cancel {
-	background-color: rgb(252, 106, 106);
+.remove {
+	background-color: transparent;
+	cursor: pointer;
+	border: none;
+	font-size: 12px;
+	margin-right: 18px;
+	text-decoration: none;
 }
 
 .if-done-checkbox {
 	position: relative;
 	right: 10px;
+}
+
+.edit-mode-input,
+.edit-mode-input:focus {
+	outline: none;
+	border: none;
+}
+
+.edit-mode-button {
+	background-color: var(--button-color);
+	border: none;
+	cursor: pointer;
+	color: var(--text-color);
 }

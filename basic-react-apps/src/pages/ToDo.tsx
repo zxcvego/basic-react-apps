@@ -4,7 +4,6 @@ import "./ToDo.css";
 import Task from "../components/Task";
 import "../components/ClearDoneTasks";
 import ClearDoneTasks from "../components/ClearDoneTasks";
-import CancelChange from "../components/CancelChange";
 
 interface TaskInterface {
 	name: string;
@@ -24,10 +23,6 @@ export default function ToDo() {
 		const data = window.localStorage.getItem(LOCAL_STORAGE_TASKLIST);
 		return !!data ? JSON.parse(data) : [];
 	});
-	const [changeNameStatus, setChangeNameStatus] = useState<ChangeTaskName>({
-		taskId: 0,
-		value: false,
-	});
 
 	const inputTask = useInput("");
 
@@ -44,7 +39,7 @@ export default function ToDo() {
 	};
 
 	const addTask = (task: TaskInterface) => {
-		if (inputTask.value.length <= 0) alert("Task name is too short!");
+		if (inputTask.value.length <= 0) return alert("Task name is too short!");
 
 		if (checkIfTaskExists(task.name)) {
 			inputTask.setValue("");
@@ -53,36 +48,6 @@ export default function ToDo() {
 
 		setTaskList([...taskList, task]);
 		inputTask.setValue("");
-	};
-
-	const resetChangeMode = () => {
-		taskList[changeNameStatus.taskId].nameChanging = false;
-		setChangeNameStatus({ taskId: 0, value: false });
-	};
-
-	const changeName = () => {
-		if (inputTask.value.length <= 0) return alert("Task name is too short!");
-
-		if (checkIfTaskExists(inputTask.value)) {
-			resetChangeMode();
-			inputTask.setValue("");
-			return alert("Task already exists!");
-		}
-
-		taskList[changeNameStatus.taskId].name = inputTask.value;
-		resetChangeMode();
-		inputTask.setValue("");
-	};
-
-	const ifChangingName = changeNameStatus.value;
-	const changeNameOrAddTask = () => {
-		ifChangingName
-			? changeName()
-			: addTask({
-					name: inputTask.value,
-					isTaskCompleted: false,
-					nameChanging: false,
-			  });
 	};
 
 	return (
@@ -95,13 +60,22 @@ export default function ToDo() {
 					<input
 						type="text"
 						className="insert-input"
-						placeholder={ifChangingName ? "Changing task name..." : "New task"}
+						placeholder={"New task"}
 						onChange={inputTask.onChange}
 						value={inputTask.value}
 						required
 					/>
-					<button className="insert-button" onClick={() => changeNameOrAddTask}>
-						{ifChangingName ? "Change" : "Add"}
+					<button
+						className="insert-button"
+						onClick={() =>
+							addTask({
+								name: inputTask.value,
+								isTaskCompleted: false,
+								nameChanging: false,
+							})
+						}
+					>
+						Add
 					</button>
 				</article>
 				<article className="task-list">
@@ -111,19 +85,10 @@ export default function ToDo() {
 							id={i}
 							taskList={taskList}
 							setTaskList={setTaskList}
-							changeNameStatusValue={ifChangingName}
-							changeNameStatusTaskId={changeNameStatus.taskId}
-							setChangeNameStatus={setChangeNameStatus}
-						></Task>
+						/>
 					))}
 				</article>
-				{ifChangingName ? (
-					<CancelChange
-						taskList={taskList}
-						setChangeNameStatus={setChangeNameStatus}
-						changeNameStatusTaskId={changeNameStatus.taskId}
-					/>
-				) : taskList.length > 0 && !ifChangingName ? (
+				{taskList.length ? (
 					<ClearDoneTasks setTaskList={setTaskList} taskList={taskList} />
 				) : null}
 			</div>

@@ -1,25 +1,16 @@
+import { useState } from "react";
+import useInput from "../hooks/useInput";
 import "./Task.css";
 
 interface TaskProps {
 	id: number;
 	taskList: any[];
-	changeNameStatusValue: boolean;
-	changeNameStatusTaskId: number;
 	setTaskList: (taskList: any[]) => void;
-	setChangeNameStatus: (changeNameStatus: {
-		taskId: number;
-		value: boolean;
-	}) => void;
 }
 
-export default function Task({
-	id,
-	taskList,
-	changeNameStatusValue,
-	changeNameStatusTaskId,
-	setTaskList,
-	setChangeNameStatus,
-}: TaskProps) {
+export default function Task({ id, taskList, setTaskList }: TaskProps) {
+	const [isEditModeEnabled, setIsEditModeEnabled] = useState(false);
+	const editModeInput = useInput("");
 	const changeTaskStatus = (status: boolean) => {
 		const tempTaskList = JSON.parse(JSON.stringify(taskList));
 		for (let i = 0; i < tempTaskList.length; i++) {
@@ -34,56 +25,55 @@ export default function Task({
 	};
 
 	const removeTask = () => {
-		changeNameStatusValue
-			? alert("Confirm modifying task name!")
-			: setTaskList(taskList.filter((_task: any, i: number) => i !== id));
+		setTaskList(taskList.filter((_task: any, i: number) => i !== id));
 	};
 
-	const initializeChangeTaskName = () => {
-		if (!changeNameStatusValue) {
-			setChangeNameStatus({ taskId: id, value: true });
-			taskList[id].nameChanging = true;
+	const taskNameOrEditMode = () => {
+		if (isEditModeEnabled) {
+			return (
+				<>
+					<input
+						className="edit-mode-input"
+						onChange={editModeInput.onChange}
+						placeholder={taskList[id].name}
+					></input>
+					<button
+						className="edit-mode-button"
+						onClick={() => {
+							if (editModeInput.value !== "")
+								taskList[id].name = editModeInput.value;
+							setIsEditModeEnabled(false);
+						}}
+					>
+						Change
+					</button>
+				</>
+			);
 		}
+		return taskList[id].name;
 	};
-
-	const resetChangeTaskName = () => {
-		if (changeNameStatusValue && changeNameStatusTaskId === id) {
-			setChangeNameStatus({ taskId: 0, value: false });
-			taskList[id].nameChanging = false;
-		} else alert("You are already changing a task.");
-	};
-
-	const singleTaskClassName = taskList[id].nameChanging
-		? "single-task task-functional-button change"
-		: taskList[id].isTaskCompleted
-		? "single-task task-functional-button done"
-		: "single-task task-functional-button";
 
 	return (
-		<li className={singleTaskClassName}>
-			<span className="task-name">{taskList[id].name}</span>
+		<li
+			className={
+				taskList[id].isTaskCompleted ? "single-task done" : "single-task"
+			}
+		>
+			<span
+				className="task-name"
+				onClick={() => (!isEditModeEnabled ? setIsEditModeEnabled(true) : null)}
+			>
+				{taskNameOrEditMode()}
+			</span>
 			<input
 				className="if-done-checkbox"
 				type="checkbox"
-				onClick={changeTaskStatusCheckbox}
+				onChange={changeTaskStatusCheckbox}
 				checked={taskList[id].isTaskCompleted}
 			/>
-			<div className="task-functional-buttons">
-				<button
-					className="task-functional-button change"
-					onClick={
-						!changeNameStatusValue
-							? initializeChangeTaskName
-							: resetChangeTaskName
-					}
-				>
-					Change name
-				</button>
-
-				<button className="task-functional-button cancel" onClick={removeTask}>
-					Cancel
-				</button>
-			</div>
+			<button className="remove" onClick={removeTask}>
+				❌
+			</button>
 		</li>
 	);
 }

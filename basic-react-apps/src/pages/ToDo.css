@@ -1,7 +1,8 @@
-.functional-task-menu {
-	text-align: center;
+:root {
+	--text-color: white;
+	--button-color: #0177fb;
+	--task-color: rgb(91, 91, 91);
 }
-
 .todo-header {
 	margin-top: 25px;
 	margin-bottom: 30px;
@@ -16,18 +17,23 @@
 
 .insert-input,
 .insert-button {
-	color: rgb(0, 0, 0);
 	border: none;
+	font-size: 1rem;
+}
+
+.insert-input {
+	color: black;
 }
 
 .insert-button {
 	cursor: pointer;
-	height: 50px;
+	height: 48px;
 	width: 150px;
+	color: var(--text-color);
 }
 
 .insert-input {
-	height: 48px;
+	height: 54px;
 	width: 550px;
 	text-align: center;
 }
@@ -37,8 +43,7 @@
 }
 
 .functional-task-menu .insert-button {
-	background-color: #0177fb;
-	font-weight: bolder;
+	background-color: var(--button-color);
 }
 
 .task-list {
@@ -50,14 +55,15 @@
 .single-task {
 	margin-left: auto;
 	margin-right: auto;
-	background-color: rgb(136, 133, 133);
+	background-color: var(--task-color);
 	height: 44px;
-	width: 704px;
+	width: 600px;
 	list-style-type: none;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	box-shadow: 0px 0px 11px 2px black;
+	font-size: 1rem;
 }
 
 .single-task > span {
@@ -65,22 +71,16 @@
 	width: 100%;
 }
 
-.task-functional-button {
-	border: none;
-	font-weight: bolder;
-}
-
-.task-functional-buttons {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	height: 100%;
-	min-width: 150px;
-}
-
 .bottom-functional-button {
-	width: 150px;
+	width: 140px;
 	height: 60px;
-	background-color: #0177fb;
-	border-radius: 20px;
-	font-weight: bolder;
+	font-size: 1rem;
+	margin-top: 6px;
+	background-image: linear-gradient(
+		var(--button-color) 0%,
+		var(--button-color) 90%,
+		#0253af
+	);
+	color: var(--text-color);
+	cursor: pointer;
 }
