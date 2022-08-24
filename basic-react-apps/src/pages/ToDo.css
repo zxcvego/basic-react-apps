@@ -84,3 +84,11 @@
 	color: var(--text-color);
 	cursor: pointer;
 }
+
+@media only screen and (max-width: 715px) {
+	.functional-task-menu {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+}

@@ -49,3 +49,9 @@ header h1 {
 	opacity: 2%;
 	z-index: -1;
 }
+
+@media screen and (max-width: 500px) {
+	.app-box {
+		width: 90vw;
+	}
+}
