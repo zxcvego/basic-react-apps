@@ -20,7 +20,6 @@ export default function Homepage() {
 					</button>
 				</article>
 			</div>
-			{/* <img src={logo} alt="logo" className="react-logo" /> */}
 		</>
 	);
 }

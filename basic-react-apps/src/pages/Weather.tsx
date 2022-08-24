@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import useInput from "../hooks/useInput";
 import "./Weather.css";
 export default function Weather() {
@@ -19,7 +20,11 @@ export default function Weather() {
 	return (
 		<>
 			<header>
-				<h1>Hello Weather app!</h1>
+				<h1>
+					<Link to="/" style={{ textDecoration: "none", color: "white" }}>
+						Hello Weather app!
+					</Link>
+				</h1>
 			</header>
 			<article className="city-input">
 				<input

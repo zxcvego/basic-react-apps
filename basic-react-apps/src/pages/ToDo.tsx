@@ -4,6 +4,7 @@ import "./ToDo.css";
 import Task from "../components/Task";
 import "../components/ClearDoneTasks";
 import ClearDoneTasks from "../components/ClearDoneTasks";
+import { Link } from "react-router-dom";
 
 interface TaskInterface {
 	name: string;
@@ -53,7 +54,11 @@ export default function ToDo() {
 	return (
 		<>
 			<header className="todo-header">
-				<h1>Hello ToDo List!</h1>
+				<h1>
+					<Link to="/" style={{ textDecoration: "none", color: "white" }}>
+						Hello ToDo List!
+					</Link>
+				</h1>
 			</header>
 			<div className="todo-flex-container">
 				<article className="functional-task-menu">
