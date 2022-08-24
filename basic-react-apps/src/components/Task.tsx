@@ -48,15 +48,16 @@ export default function Task({
 		} else alert("You are already changing a task.");
 	};
 
+	const TaskClassName = taskList[id].nameChanging
+	? "change-name"
+	: taskList[id].isTaskCompleted
+	? "done"
+	: ""
+
 	return (
 		<li
 			className={
-				taskList[id].nameChanging
-					? "change-name"
-					: taskList[id].isTaskCompleted
-					? "done"
-					: ""
-			}
+				TaskClassName}
 		>
 			<span className="task-name">{taskList[id].name}</span>
 			<button className="cancel-button" onClick={removeTask}>
