@@ -1,54 +1,20 @@
-li {
-	background-color: gray;
-	height: 48px;
-	width: 704px;
-	list-style-type: none;
-	margin-top: 5px;
-	margin-left: auto;
-	margin-right: auto;
+.task-functional-button.done {
+	color: green;
 }
 
-li button {
-	width: 66.65px;
-	height: 48px;
-	float: right;
-	text-align: center;
-}
-
-.done-button {
-	background-color: green;
-	color: black;
-	font-weight: 600;
-}
-
-.undone-button {
+.task-functional-button.undone {
 	background-color: orange;
-	color: black;
-	font-weight: 600;
 }
 
-.cancel-button {
+.task-functional-button.change {
+	background-color: #0177fb;
+}
+
+.task-functional-button.cancel {
 	background-color: rgb(252, 106, 106);
-	color: black;
-	font-weight: 600;
 }
 
-li .task-name {
+.if-done-checkbox {
 	position: relative;
-	top: 11px;
-}
-
-.done {
-	background-color: green;
-	text-align: center;
-}
-
-.done .task-name {
-	color: black;
-}
-
-.change-name,
-.change-name-button {
-	background-color: rgb(100, 146, 244);
-	font-weight: 600;
+	right: 10px;
 }

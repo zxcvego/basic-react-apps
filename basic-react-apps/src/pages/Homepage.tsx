@@ -13,10 +13,10 @@ export default function Homepage() {
 				</header>
 				<article className="app-flex-container">
 					<button className="app-box" onClick={() => navigate("/todo-list")}>
-						<h2>ToDo List</h2>
+						<span>ToDo List</span>
 					</button>
 					<button className="app-box" onClick={() => navigate("/weather")}>
-						<h2>Weather</h2>
+						<span>Weather</span>
 					</button>
 				</article>
 			</div>

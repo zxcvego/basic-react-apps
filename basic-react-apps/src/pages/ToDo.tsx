@@ -4,6 +4,7 @@ import "./ToDo.css";
 import Task from "../components/Task";
 import "../components/ClearDoneTasks";
 import ClearDoneTasks from "../components/ClearDoneTasks";
+import CancelChange from "../components/CancelChange";
 
 interface TaskInterface {
 	name: string;
@@ -72,50 +73,59 @@ export default function ToDo() {
 
 	return (
 		<>
-			<header>
+			<header className="todo-header">
 				<h1>Hello ToDo List!</h1>
 			</header>
-			<article className="functional-task-menu">
-				<input
-					type="text"
-					placeholder={
-						changeNameStatus.value ? "Changing task name..." : "New task"
-					}
-					onChange={inputTask.onChange}
-					value={inputTask.value}
-					required
-				/>
-				<button
-					onClick={() =>
-						changeNameStatus.value
-							? changeName()
-							: addTask({
-									name: inputTask.value,
-									isTaskCompleted: false,
-									nameChanging: false,
-							  })
-					}
-				>
-					{changeNameStatus.value ? "Change" : "Add"}
-				</button>
-			</article>
-			<article className="task-list">
-				{taskList.map((_singleTask, i) => (
-					<Task
-						key={i}
-						id={i}
+			<div className="todo-flex-container">
+				<article className="functional-task-menu">
+					<input
+						type="text"
+						className="insert-input"
+						placeholder={
+							changeNameStatus.value ? "Changing task name..." : "New task"
+						}
+						onChange={inputTask.onChange}
+						value={inputTask.value}
+						required
+					/>
+					<button
+						className="insert-button"
+						onClick={() =>
+							changeNameStatus.value
+								? changeName()
+								: addTask({
+										name: inputTask.value,
+										isTaskCompleted: false,
+										nameChanging: false,
+								  })
+						}
+					>
+						{changeNameStatus.value ? "Change" : "Add"}
+					</button>
+				</article>
+				<article className="task-list">
+					{taskList.map((_singleTask, i) => (
+						<Task
+							key={i}
+							id={i}
+							taskList={taskList}
+							setTaskList={setTaskList}
+							changeNameStatusValue={changeNameStatus.value}
+							changeNameStatusTaskId={changeNameStatus.taskId}
+							setChangeNameStatus={setChangeNameStatus}
+						></Task>
+					))}
+				</article>
+				{changeNameStatus.value ? (
+					<CancelChange
 						taskList={taskList}
-						setTaskList={setTaskList}
-						changeNameStatusValue={changeNameStatus.value}
-						changeNameStatusTaskId={changeNameStatus.taskId}
 						setChangeNameStatus={setChangeNameStatus}
-					></Task>
-				))}
-
-				{taskList.length > 0 && !changeNameStatus.value ? (
+						changeNameStatusTaskId={changeNameStatus.taskId}
+					/>
+				) : taskList.length > 0 && !changeNameStatus.value ? (
 					<ClearDoneTasks setTaskList={setTaskList} taskList={taskList} />
 				) : null}
-			</article>
+			</div>
 		</>
 	);
 }

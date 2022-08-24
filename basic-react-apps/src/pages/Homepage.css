@@ -34,10 +34,11 @@ header h1 {
 .app-box:hover {
 	background: #0177fb;
 	transform: scale(1.1);
+	cursor: pointer;
 	box-shadow: none;
 }
 
-button h2 {
+.app-box span {
 	font-size: 2rem;
 	font-weight: 600;
 	color: black;

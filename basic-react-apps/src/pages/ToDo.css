@@ -2,39 +2,84 @@
 	text-align: center;
 }
 
-input,
-button {
+.todo-header {
+	margin-top: 25px;
+	margin-bottom: 30px;
+}
+
+.todo-flex-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 15px;
+}
+
+.insert-input,
+.insert-button {
 	color: rgb(0, 0, 0);
 	border: none;
 }
 
-button {
+.insert-button {
 	cursor: pointer;
 	height: 50px;
-	width: 200px;
+	width: 150px;
 }
 
-input {
+.insert-input {
 	height: 48px;
-	width: 500px;
+	width: 550px;
 	text-align: center;
 }
 
-input:focus {
+.insert-input:focus {
 	outline: none;
 }
 
-.functional-task-menu button {
-	background-color: #61dbfb;
+.functional-task-menu .insert-button {
+	background-color: #0177fb;
+	font-weight: bolder;
 }
 
 .task-list {
-	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
 }
 
+.single-task {
+	margin-left: auto;
+	margin-right: auto;
+	background-color: rgb(136, 133, 133);
+	height: 44px;
+	width: 704px;
+	list-style-type: none;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	box-shadow: 0px 0px 11px 2px black;
+}
+
+.single-task > span {
+	text-align: center;
+	width: 100%;
+}
+
+.task-functional-button {
+	border: none;
+	font-weight: bolder;
+}
+
+.task-functional-buttons {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	height: 100%;
+	min-width: 150px;
+}
 .clear-tasks-button {
-	margin-top: 10px;
-	background-color: #61dbfb;
+	width: 150px;
+	height: 60px;
+	background-color: #0177fb;
+	border-radius: 20px;
+	font-weight: bolder;
 }

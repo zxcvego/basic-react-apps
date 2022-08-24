@@ -28,6 +28,11 @@ export default function Task({
 		setTaskList(tempTaskList);
 	};
 
+	const changeTaskStatusCheckbox = () => {
+		const status = taskList[id].isTaskCompleted;
+		changeTaskStatus(!status);
+	};
+
 	const removeTask = () => {
 		changeNameStatusValue
 			? alert("Confirm modifying task name!")
@@ -49,36 +54,35 @@ export default function Task({
 	};
 
 	const TaskClassName = taskList[id].nameChanging
-	? "change-name"
-	: taskList[id].isTaskCompleted
-	? "done"
-	: ""
+		? "single-task task-functional-button change"
+		: taskList[id].isTaskCompleted
+		? "single-task task-functional-button done"
+		: "single-task task-functional-button";
 
 	return (
-		<li
-			className={
-				TaskClassName}
-		>
+		<li className={TaskClassName}>
 			<span className="task-name">{taskList[id].name}</span>
-			<button className="cancel-button" onClick={removeTask}>
-				Cancel
-			</button>
-			<button
-				className="change-name-button"
-				onClick={
-					!changeNameStatusValue
-						? initializeChangeTaskName
-						: resetChangeTaskName
-				}
-			>
-				{!changeNameStatusValue ? "Change name" : "Do not change"}
-			</button>
-			<button className="undone-button" onClick={() => changeTaskStatus(false)}>
-				Undone
-			</button>
-			<button className="done-button" onClick={() => changeTaskStatus(true)}>
-				Done
-			</button>
+			<input
+				className="if-done-checkbox"
+				type="checkbox"
+				onClick={changeTaskStatusCheckbox}
+			/>
+			<div className="task-functional-buttons">
+				<button
+					className="task-functional-button change"
+					onClick={
+						!changeNameStatusValue
+							? initializeChangeTaskName
+							: resetChangeTaskName
+					}
+				>
+					Change name
+				</button>
+
+				<button className="task-functional-button cancel" onClick={removeTask}>
+					Cancel
+				</button>
+			</div>
 		</li>
 	);
 }
