@@ -8,6 +8,12 @@ import ClearDoneTasks from "../components/ClearDoneTasks";
 interface TaskInterface {
 	name: string;
 	isTaskCompleted: boolean;
+	nameChanging: boolean;
+}
+
+interface ChangeTaskName {
+	taskId: number;
+	value: boolean;
 }
 
 const LOCAL_STORAGE_TASKLIST = "tasks";
@@ -16,6 +22,10 @@ export default function ToDo() {
 	const [taskList, setTaskList] = useState<TaskInterface[]>(() => {
 		const data = window.localStorage.getItem(LOCAL_STORAGE_TASKLIST);
 		return !!data ? JSON.parse(data) : [];
+	});
+	const [changeNameStatus, setChangeNameStatus] = useState<ChangeTaskName>({
+		taskId: 0,
+		value: false,
 	});
 
 	const inputTask = useInput("");
@@ -44,8 +54,21 @@ export default function ToDo() {
 		}
 	};
 
-	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-		inputTask.setValue(e.target.value);
+	const changeName = () => {
+		if (inputTask.value.length <= 0) {
+			alert("Task name is too short!");
+		} else if (checkIfTaskExists(inputTask.value)) {
+			alert("Task already exists!");
+			taskList[changeNameStatus.taskId].nameChanging = false;
+			setChangeNameStatus({ taskId: 0, value: false });
+			inputTask.setValue("");
+		} else {
+			taskList[changeNameStatus.taskId].name = inputTask.value;
+			taskList[changeNameStatus.taskId].nameChanging = false;
+			setChangeNameStatus({ taskId: 0, value: false });
+			inputTask.setValue("");
+		}
+	};
 
 	return (
 		<>
@@ -55,31 +78,41 @@ export default function ToDo() {
 			<article className="functional-task-menu">
 				<input
 					type="text"
-					placeholder="New task"
-					onChange={handleInputChange}
+					placeholder={
+						changeNameStatus.value ? "Changing task name..." : "New task"
+					}
+					onChange={inputTask.onChange}
 					value={inputTask.value}
 					required
 				/>
 				<button
 					onClick={() =>
-						addTask({ name: inputTask.value, isTaskCompleted: false })
+						changeNameStatus.value
+							? changeName()
+							: addTask({
+									name: inputTask.value,
+									isTaskCompleted: false,
+									nameChanging: false,
+							  })
 					}
 				>
-					Add
+					{changeNameStatus.value ? "Change" : "Add"}
 				</button>
 			</article>
 			<article className="task-list">
-				{taskList.map((singleTask, i) => (
+				{taskList.map((_singleTask, i) => (
 					<Task
 						key={i}
 						id={i}
-						taskName={taskList[i].name}
-						setTaskList={setTaskList}
 						taskList={taskList}
+						setTaskList={setTaskList}
+						changeNameStatusValue={changeNameStatus.value}
+						changeNameStatusTaskId={changeNameStatus.taskId}
+						setChangeNameStatus={setChangeNameStatus}
 					></Task>
 				))}
 
-				{taskList.length > 0 ? (
+				{taskList.length > 0 && !changeNameStatus.value ? (
 					<ClearDoneTasks setTaskList={setTaskList} taskList={taskList} />
 				) : null}
 			</article>

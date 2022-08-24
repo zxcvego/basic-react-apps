@@ -2,16 +2,23 @@ import "./Task.css";
 
 interface TaskProps {
 	id: number;
-	taskName: string;
-	setTaskList: (taskList: any[]) => void;
 	taskList: any[];
+	changeNameStatusValue: boolean;
+	changeNameStatusTaskId: number;
+	setTaskList: (taskList: any[]) => void;
+	setChangeNameStatus: (changeNameStatus: {
+		taskId: number;
+		value: boolean;
+	}) => void;
 }
 
 export default function Task({
-	taskList,
 	id,
+	taskList,
+	changeNameStatusValue,
+	changeNameStatusTaskId,
 	setTaskList,
-	taskName,
+	setChangeNameStatus,
 }: TaskProps) {
 	const changeTaskStatus = (status: boolean) => {
 		const tempTaskList = JSON.parse(JSON.stringify(taskList));
@@ -22,14 +29,48 @@ export default function Task({
 	};
 
 	const removeTask = () => {
-		setTaskList(taskList.filter((_task: any, i: number) => i !== id));
+		changeNameStatusValue
+			? alert("Confirm modifying task name!")
+			: setTaskList(taskList.filter((_task: any, i: number) => i !== id));
+	};
+
+	const initializeChangeTaskName = () => {
+		if (!changeNameStatusValue) {
+			setChangeNameStatus({ taskId: id, value: true });
+			taskList[id].nameChanging = true;
+		}
+	};
+
+	const resetChangeTaskName = () => {
+		if (changeNameStatusValue && changeNameStatusTaskId === id) {
+			setChangeNameStatus({ taskId: 0, value: false });
+			taskList[id].nameChanging = false;
+		} else alert("You are already changing a task.");
 	};
 
 	return (
-		<li className={taskList[id].isTaskCompleted ? "done" : ""}>
-			<span className="task-name">{taskName}</span>
+		<li
+			className={
+				taskList[id].nameChanging
+					? "change-name"
+					: taskList[id].isTaskCompleted
+					? "done"
+					: ""
+			}
+		>
+			<span className="task-name">{taskList[id].name}</span>
 			<button className="cancel-button" onClick={removeTask}>
 				Cancel
+			</button>
+			<button
+				className="change-name-button"
+				onClick={
+					!changeNameStatusValue
+						? initializeChangeTaskName
+						: resetChangeTaskName
+				}
+			>
+				{!changeNameStatusValue ? "Change name" : "Do not change"}
 			</button>
 			<button className="undone-button" onClick={() => changeTaskStatus(false)}>
 				Undone

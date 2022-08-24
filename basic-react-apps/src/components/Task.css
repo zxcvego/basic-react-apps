@@ -12,6 +12,7 @@ li button {
 	width: 66.65px;
 	height: 48px;
 	float: right;
+	text-align: center;
 }
 
 .done-button {
@@ -39,8 +40,15 @@ li .task-name {
 
 .done {
 	background-color: green;
+	text-align: center;
 }
 
 .done .task-name {
 	color: black;
+}
+
+.change-name,
+.change-name-button {
+	background-color: rgb(100, 146, 244);
+	font-weight: 600;
 }
