@@ -44,12 +44,6 @@ header h1 {
 	color: black;
 }
 
-.react-logo {
-	position: fixed;
-	opacity: 2%;
-	z-index: -1;
-}
-
 @media screen and (max-width: 500px) {
 	.app-box {
 		width: 90vw;
