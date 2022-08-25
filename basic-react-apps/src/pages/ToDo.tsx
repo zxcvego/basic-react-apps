@@ -93,6 +93,7 @@ export default function ToDo() {
 						/>
 					))}
 				</article>
+				{}
 				{taskList.length ? (
 					<ClearDoneTasks setTaskList={setTaskList} taskList={taskList} />
 				) : null}
