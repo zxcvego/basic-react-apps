@@ -12,11 +12,6 @@ interface TaskInterface {
 	nameChanging: boolean;
 }
 
-interface ChangeTaskName {
-	taskId: number;
-	value: boolean;
-}
-
 const LOCAL_STORAGE_TASKLIST = "tasks";
 
 export default function ToDo() {

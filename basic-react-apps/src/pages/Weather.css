@@ -5,12 +5,18 @@ header h1 {
 
 .city-input-container {
 	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 .city-input {
 	width: 680px;
 	height: 50px;
-	margin-bottom: 50px;
 	border-radius: 20px;
 	font-size: 1.5rem;
 	text-align: center;
+}
+
+.city-not-found {
+	margin-top: 10px;
 }

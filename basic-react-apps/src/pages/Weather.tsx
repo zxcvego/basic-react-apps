@@ -7,6 +7,7 @@ import "./Weather.css";
 
 const API_KEY = "49f8863eee1ab82c478747f2d0dcac8f";
 const BASE_URL = "https://api.openweathermap.org/data/2.5/weather?";
+const NOT_FOUND = "Unluckily, we could not find any data for the city 😓";
 
 interface ForecastProps {
 	city: string;
@@ -18,7 +19,7 @@ export default function Weather() {
 	const inputCity = useInput("");
 	const [weatherForecastObject, setWeatherForecastObject] =
 		useState<ForecastProps>();
-	const [errorStatus, setErrorStatus] = useState({});
+	const [errorStatus, setErrorStatus] = useState(" ");
 	const [isForecastVisible, setIsForecastVisible] = useState(false);
 
 	const captureEnteredCity = (e: React.KeyboardEvent<Element>) => {
@@ -42,9 +43,12 @@ export default function Weather() {
 					country: res.data.sys.country,
 				});
 				setIsForecastVisible(true);
+				setErrorStatus("");
 			})
-			.catch((err: any) => setErrorStatus(err));
-		window.localStorage.setItem("city", city);
+			.catch((err: any) => {
+				setErrorStatus(err.code);
+				setIsForecastVisible(false);
+			});
 	}, [city]);
 
 	return (
@@ -65,10 +69,14 @@ export default function Weather() {
 					value={inputCity.value}
 					onKeyDown={captureEnteredCity}
 					autoComplete="on"
-					required
 				/>
+
+				{errorStatus === "ERR_BAD_REQUEST" ? (
+					<h3 className="city-not-found">{NOT_FOUND}</h3>
+				) : null}
 			</article>
-			<button onClick={() => console.log(weatherForecastObject)}></button>
+
+			{console.log(errorStatus)}
 			{isForecastVisible ? (
 				<Forecast weatherForecastData={weatherForecastObject}></Forecast>
 			) : null}
