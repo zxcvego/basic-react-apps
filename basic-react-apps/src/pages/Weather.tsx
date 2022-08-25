@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useInput from "../hooks/useInput";
 import "./Weather.css";
+
+const API_KEY = "49f8863eee1ab82c478747f2d0dcac8f";
+const BASE_URL = "https://api.openweathermap.org/data/2.5/weather?";
+
 export default function Weather() {
 	const [city, setCity] = useState("");
 	const inputCity = useInput("");
+	const [weatherObject, setWeatherObject] = useState({});
+	const [errorStatus, setErrorStatus] = useState({});
+	const axios = require("axios");
 
 	const captureEnteredCity = (e: React.KeyboardEvent<Element>) => {
 		if (e.key === "Enter") {
@@ -16,6 +24,15 @@ export default function Weather() {
 			}
 		}
 	};
+
+	useEffect(() => {
+		const url = `${BASE_URL}q=${city}+&appid=${API_KEY}`;
+		axios
+			.get(url)
+			.then((res: any) => setWeatherObject(res.data))
+			.catch((err: any) => setErrorStatus(err));
+		window.localStorage.setItem("city", city);
+	}, [city]);
 
 	return (
 		<>
@@ -36,7 +53,6 @@ export default function Weather() {
 					autoComplete="on"
 					required
 				/>
-				<div>{city}</div>
 			</article>
 		</>
 	);
