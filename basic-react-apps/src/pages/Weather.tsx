@@ -9,7 +9,8 @@ const API_KEY = "49f8863eee1ab82c478747f2d0dcac8f";
 const BASE_URL = "https://api.openweathermap.org/data/2.5/weather?";
 const NOT_FOUND = "Unluckily, we could not find any data for the city 😓";
 
-interface ForecastProps {
+export interface ForecastProps {
+	weatherForecastObject?: any;
 	city: string;
 	country: string;
 	weather: string;
@@ -92,7 +93,7 @@ export default function Weather() {
 
 			{console.log(errorStatus)}
 			{isForecastVisible ? (
-				<Forecast weatherForecastData={weatherForecastObject}></Forecast>
+				<Forecast weatherForecastObject={weatherForecastObject}></Forecast>
 			) : null}
 		</>
 	);
