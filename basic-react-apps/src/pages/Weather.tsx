@@ -12,6 +12,13 @@ const NOT_FOUND = "Unluckily, we could not find any data for the city 😓";
 interface ForecastProps {
 	city: string;
 	country: string;
+	weather: string;
+	weatherDescription: string;
+	weatherIcon: string;
+	temperature: number;
+	pressure: number;
+	humidity: number;
+	windSpeed: number;
 }
 
 export default function Weather() {
@@ -41,6 +48,13 @@ export default function Weather() {
 				setWeatherForecastObject({
 					city: res.data.name,
 					country: res.data.sys.country,
+					weather: res.data.weather[0].main,
+					weatherDescription: res.data.weather[0].description,
+					weatherIcon: res.data.weather[0].icon,
+					temperature: res.data.main.temp,
+					pressure: res.data.main.pressure,
+					humidity: res.data.main.humidity,
+					windSpeed: res.data.wind.speed,
 				});
 				setIsForecastVisible(true);
 				setErrorStatus("");
