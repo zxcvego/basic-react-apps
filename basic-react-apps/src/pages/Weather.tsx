@@ -42,28 +42,30 @@ export default function Weather() {
 	};
 
 	useEffect(() => {
-		const url = `${BASE_URL}q=${city}+&appid=${API_KEY}`;
-		axios
-			.get(url)
-			.then((res: any) => {
-				setWeatherForecastObject({
-					city: res.data.name,
-					country: res.data.sys.country,
-					weather: res.data.weather[0].main,
-					weatherDescription: res.data.weather[0].description,
-					weatherIcon: res.data.weather[0].icon,
-					temperature: res.data.main.temp,
-					pressure: res.data.main.pressure,
-					humidity: res.data.main.humidity,
-					windSpeed: res.data.wind.speed,
+		if (city !== "") {
+			const url = `${BASE_URL}q=${city}+&appid=${API_KEY}`;
+			axios
+				.get(url)
+				.then((res: any) => {
+					setWeatherForecastObject({
+						city: res.data.name,
+						country: res.data.sys.country,
+						weather: res.data.weather[0].main,
+						weatherDescription: res.data.weather[0].description,
+						weatherIcon: res.data.weather[0].icon,
+						temperature: res.data.main.temp,
+						pressure: res.data.main.pressure,
+						humidity: res.data.main.humidity,
+						windSpeed: res.data.wind.speed,
+					});
+					setIsForecastVisible(true);
+					setErrorStatus("");
+				})
+				.catch((err: any) => {
+					setErrorStatus(err.code);
+					setIsForecastVisible(false);
 				});
-				setIsForecastVisible(true);
-				setErrorStatus("");
-			})
-			.catch((err: any) => {
-				setErrorStatus(err.code);
-				setIsForecastVisible(false);
-			});
+		}
 	}, [city]);
 
 	return (
@@ -90,8 +92,6 @@ export default function Weather() {
 					<h3 className="city-not-found">{NOT_FOUND}</h3>
 				) : null}
 			</article>
-
-			{console.log(errorStatus)}
 			{isForecastVisible ? (
 				<Forecast weatherForecastObject={weatherForecastObject}></Forecast>
 			) : null}
