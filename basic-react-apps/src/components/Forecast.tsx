@@ -35,7 +35,7 @@ export default function Forecast({
 				<div className="temperature-icon-weather-flex">
 					<div className="temperature-icon-container">
 						<h1 className="temperature">
-							{Math.floor(temperature - 272.15)}°C
+							{(temperature - 272.15).toFixed()}°C
 						</h1>
 						<img
 							className="weather-icon"
@@ -59,7 +59,7 @@ export default function Forecast({
 						<h2>humidity</h2>
 					</div>
 					<div className="weather-details">
-						<h1>{Math.floor(windSpeed * 3.6)}km/h</h1>
+						<h1>{(windSpeed * 3.6).toFixed()}km/h</h1>
 						<h2>wind speed</h2>
 					</div>
 				</div>
